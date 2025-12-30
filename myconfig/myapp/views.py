@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework import viewsets 
+from .serializers import TaskSerializer
+from .models import Task
 
 
-@api_view(['GET'])
-def health_check(request):
-    return Response({
-        "status": "ok",
-        "message": "Backend is running"
-    })
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
